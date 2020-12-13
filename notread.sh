@@ -6,7 +6,7 @@
 #
 # Author    : Barry Kimelman
 #
-# Created   : September 6662020
+# Created   : September 6, 2020
 #
 # Purpose   : Descend down a directory tree and find unreadable files
 #

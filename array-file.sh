@@ -10,8 +10,7 @@
 #
 # Purpose   : bash array handling with text file
 #
-# Notes     : Their example for loading into an array from a file does
-#             not work if there are spaces in the lines of text
+# Notes     :
 #
 ######################################################################
 

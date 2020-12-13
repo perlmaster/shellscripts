@@ -10,8 +10,7 @@
 #
 # Purpose   : bash array handling with text file
 #
-# Notes     : https://www.thegeekstuff.com/2010/06/bash-array-tutorial/
-#             Their example for loading into an array from a file does
+# Notes     : Their example for loading into an array from a file does
 #             not work if there are spaces in the lines of text
 #
 ######################################################################

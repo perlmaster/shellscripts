@@ -2,29 +2,60 @@ function what
 {
 	typeset tempfile
 	typeset name
+	typeset found
 
 	if [[ $# < 1 ]]
 	then
 		echo "Usage : ${FUNCNAME[0]} name"
 	else
+		found=0
 		tempfile=/tmp/${LOGNAME}.$$.what
 		name="$1"
 
-		alias "$name" 2> /dev/null
+		/bin/rm -f $tempfile
+		alias "$name" 2> /dev/null > $tempfile
+		if [[ $? == 0 ]]
+		then
+			echo
+			cat $tempfile
+			found=1
+		fi
 
 		/bin/rm -f $tempfile
 		which "$name" 2> /dev/null > $tempfile
 		if [[ $? == 0 ]]
 		then
+			echo
 			/bin/ls -l `cat $tempfile`
+			found=1
 		fi
 
 		/bin/rm -f $tempfile
 		type "$name" > $tempfile 2> /dev/null
 		if [[ $? == 0 ]]
 		then
-			cat $tempfile
+			egrep -q 'is a function' $tempfile
+			if [[ $? == 0 ]]
+			then
+				cat $tempfile
+				echo
+				head -1 $tempfile
+				found=1
+			fi
+		fi
+
+		/bin/rm -f $tempfile
+		compgen -b | egrep "^$name$" > $tempfile 2> /dev/null
+		if [[ $? == 0 ]]
+		then
+			echo "$name is a shell builtin command"
+			found=1
+		fi
+
+		/bin/rm -f $tempfile
+		if [[ $found == 0 ]]
+		then
+			echo "Nothing found for '$1'"
 		fi
 	fi
-	/bin/rm -f $tempfile
 }

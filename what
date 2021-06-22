@@ -9,23 +9,21 @@ function what
 	else
 		tempfile=/tmp/${LOGNAME}.$$.what
 		name="$1"
+
 		alias "$name" 2> /dev/null
-		if [[ $? > 0 ]]
+
+		/bin/rm -f $tempfile
+		which "$name" 2> /dev/null > $tempfile
+		if [[ $? == 0 ]]
 		then
-			which "$name" 2> /dev/null > $tempfile
-			if [[ $? > 0 ]]
-			then
-				/bin/rm -f $tempfile
-				type "$name" > $tempfile 2> /dev/null
-				if [[ $? == 0 ]]
-				then
-					head -1 $tempfile
-				else
-					echo "Nothing found for '$name'"
-				fi
-			else
-				/bin/ls -l `cat $tempfile`
-			fi
+			/bin/ls -l `cat $tempfile`
+		fi
+
+		/bin/rm -f $tempfile
+		type "$name" > $tempfile 2> /dev/null
+		if [[ $? == 0 ]]
+		then
+			cat $tempfile
 		fi
 	fi
 	/bin/rm -f $tempfile

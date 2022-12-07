@@ -1,0 +1,51 @@
+#!/bin/bash
+
+######################################################################
+#
+# File      : shells
+#
+# Author    : Barry Kimelman
+#
+# Created   : May 31, 2021
+#
+# Purpose   : Find all the files that are shell scripts
+#
+# Notes     : (none)
+#
+######################################################################
+
+errors=0
+opt_l=0
+opt_h=0
+while getopts lh opt
+do
+	case $opt in
+	l)
+		opt_l=1
+		;;
+	h)
+		opt_h=1
+		;;
+	\?)
+		errors=1
+	esac
+done
+
+shift `expr $OPTIND - 1`
+
+if [[ $errors -eq 1 || $opt_h == 1 ]]
+then
+	basename=`basename $0`
+	echo "Usage : $basename [-lh]"
+	exit 1
+fi
+
+shells=`file * | egrep 'shell script' | awk -F: '{print $1}'`
+if [[ $opt_l == 1 ]]
+then
+	ls -l --time-style='+%m/%d/%Y %H:%M:%S' $shells
+else
+	ls -1 $shells
+fi
+
+exit 0

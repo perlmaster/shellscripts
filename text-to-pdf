@@ -10,7 +10,7 @@
 #
 # Purpose   : Convert a text file to pdf
 #
-# Notes     : The postscript file name will be temp.ps
+# Notes     : (none)
 #
 ######################################################################
 
@@ -21,7 +21,7 @@ then
 	exit 1
 fi
 
-ps_file=temp.ps
+ps_file="/tmp/${LOGNAME}-${basename}-$$.ps"
 text_file=$1
 pdf_file=$2
 

@@ -11,3 +11,4 @@ array-file.sh - bash array handling with text file
 binary - Generate a list of all the binary programs in the current directory
 shells - Find all the files that are shell scripts
 choosedir.sh - chooese a directory from a list of directories
+text-to-pdf - convert a text file to PDF

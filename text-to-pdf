@@ -1,0 +1,53 @@
+#!/bin/bash
+
+######################################################################
+#
+# File      : text-to-pdf
+#
+# Author    : Barry Kimelman
+#
+# Created   : December 20, 2022
+#
+# Purpose   : Convert a text file to pdf
+#
+# Notes     : The postscript file name will be temp.ps
+#
+######################################################################
+
+basename=`basename $0`
+if [[ $# != 2 ]]
+then
+	echo "Usage : $basename text_file pdf_file"
+	exit 1
+fi
+
+ps_file=temp.ps
+text_file=$1
+pdf_file=$2
+
+if [[ ! -f $text_file ]]
+then
+	echo "$text_file is not an existing file"
+	exit 1
+fi
+
+/bin/rm -f $ps_file
+/bin/rm -f $pdf_file
+
+enscript -p $ps_file $text_file
+if [[ $? != 0 ]]
+then
+	echo "Could not convert $text_file to postscript"
+	exit 1
+fi
+
+ps2pdf $ps_file $pdf_file
+if [[ $? != 0 ]]
+then
+	echo "Could not convert $ps_file to pdf"
+else
+	/bin/ls -la --time-style='+%b %d,%Y %H:%M:%S' $pdf_file
+fi
+/bin/rm -f $ps_file
+
+exit $?

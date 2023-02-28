@@ -12,3 +12,5 @@ binary - Generate a list of all the binary programs in the current directory
 shells - Find all the files that are shell scripts
 choosedir.sh - chooese a directory from a list of directories
 text-to-pdf - convert a text file to PDF
+curses.sh - module containing functions to manipulate the screen
+test1.sh - a testing script which uses curses.sh
